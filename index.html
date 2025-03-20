@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MediBridge</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1>MediBridge</h1>
+            <p>Your comprehensive healthcare management system.</p>
+        </header>
+
+        <main>
+            <section class="buttons">
+                <button id="sendAlertButton" class="btn btn-primary">Send Emergency Alert</button>
+                <button class="btn btn-secondary" onclick="window.location.href='organ-donation.html'">Organ Donation</button>
+                <button class="btn btn-success">Medical History</button>
+                <button class="btn btn-info">AI Support</button>
+            </section>
+
+            <div class="container">
+                <div class="heading">Emergency Alert</div>
+                <form action="" class="form" id="emergencyAlertForm">
+                    <input class="input" type="text" name="name" placeholder="Patient Name" required>
+                    <input class="input" type="text" name="location" placeholder="Patient Location" required>
+                    <input class="alert-button" type="submit" value="Send Alert" id="sendAlertButton">
+                </form>
+                 </div>
+                    
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 MediBridge. All rights reserved.</p>
+        </footer>
+
+        <script src="script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </body>
+</html>

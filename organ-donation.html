@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organ Donation Form - MediBridge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="organ-donation-header">
+        <a href="index.html" class="custom-link">
+            <h1>MediBridge</h1>
+        </a>
+        <h2>Organ Donation Form</h1>
+    </header>
+
+    <main class="organ-donation-main">
+        <section class="donation-form">
+            <h2 class="organ-donation-heading">Register for Organ Donation</h2>
+            <div class="form-container">
+                <form class="form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" name="fullName" placeholder="Full Name" required>
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="Email Address" required>
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-options">
+                        <label for="organ">Organ to Donate</label>
+                        <select name="organ" id="organ" required>
+                            <option value="kidney">Kidney</option>
+                            <option value="liver">Liver</option>
+                            <option value="heart">Heart</option>
+                            <option value="lung">Lung</option>
+                            <option value="pancreas">Pancreas</option>
+                            <option value="intestine">Intestine</option>
+                        </select>
+                        <label for="bloodType">Blood Type</label>
+                        <select name="bloodType" id="bloodType" required>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                        <label for="age">Age</label>
+                        <input type="number" name="age" placeholder="Age" min="18" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="textarea">Additional Information</label>
+                        <textarea name="additionalInfo" id="textarea" placeholder="Additional Information" rows="10" cols="50">
+                        </textarea>
+
+                    </div>
+                    <button class="form-submit-btn" type="submit">Submit Donation Registration
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
