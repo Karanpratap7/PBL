@@ -1,0 +1,12 @@
+# Node modules (these can be reinstalled anytime)
+node_modules/
+
+# Environment variables (never push secrets!)
+.env
+
+# Log files
+*.log
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
