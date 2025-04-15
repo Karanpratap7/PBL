@@ -1,287 +1,739 @@
-/* Reset some default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --font-primary: 'Inter', sans-serif;
+    --bg-light: #f8f9fa;
+    --bg-dark: #1a1a1d; /* Slightly softer dark */
+    --primary-color: #007bff; /* Vivid blue */
+    --secondary-color: #6f42c1; /* Elegant purple */
+    --accent-color-1: #fd7e14; /* Warm orange */
+    --accent-color-2: #20c997; /* Teal green */
+    --emergency-color: #dc3545; /* Standard red */
+    --success-color: #28a745; /* Standard green */
+    --info-color: #17a2b8; /* Info cyan */
+
+    --text-light: #f8f9fa;
+    --text-dark: #212529;
+    --text-muted-light: rgba(248, 249, 250, 0.7);
+    --text-muted-dark: rgba(33, 37, 41, 0.7);
+
+    --card-bg-light: rgba(255, 255, 255, 0.8);
+    --card-bg-dark: rgba(40, 40, 45, 0.85);
+    --card-border-light: rgba(0, 0, 0, 0.08);
+    --card-border-dark: rgba(255, 255, 255, 0.12);
+
+    --glass-blur: 12px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --transition-speed: 0.3s;
+    --transition-fast: 0.2s;
+    --transition-slow: 0.5s;
 }
+
+html { scroll-behavior: smooth; }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-primary);
+    font-size: 16px;
     line-height: 1.6;
-    background-color: white;
-    color: #333;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    transition: background-color var(--transition-slow) ease;
+}
+body.preload * { transition: none !important; }
+body.organ-donation-page { background-color: var(--bg-dark); color: var(--text-light); }
+body.modal-open { overflow-y: hidden; }
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
 }
 
-header {
-    background-image: linear-gradient(to right, #00b4db, #0083b0);
-    color: #fff;
-    padding: 20px;
-    text-align: center;
+.blob-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.15;
+    animation: move 25s infinite alternate ease-in-out;
+}
+.blob-1 { width: 500px; height: 500px; background: var(--primary-color); top: -150px; left: -150px; animation-delay: 0s; }
+.blob-2 { width: 400px; height: 400px; background: var(--secondary-color); bottom: -100px; right: -100px; animation-delay: 5s; }
+.blob-3 { width: 300px; height: 300px; background: var(--accent-color-1); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: 10s; }
+.dark-blob { background: var(--accent-color-2); }
+body.organ-donation-page .blob { opacity: 0.2; }
+body.organ-donation-page .blob-1 { background: var(--secondary-color); }
+body.organ-donation-page .blob-2 { background: var(--info-color); }
+
+@keyframes move {
+    from { transform: translate(0, 0) rotate(0deg) scale(1); }
+    to { transform: translate(100px, 50px) rotate(180deg) scale(1.2); }
 }
 
-h1 {
-    margin-bottom: 10px;
+.app-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: 1px solid var(--card-border-light);
+    z-index: 100;
+    transition: background-color var(--transition-slow), border-color var(--transition-slow);
+}
+body.organ-donation-page .app-header {
+    background: rgba(30, 30, 33, 0.7);
+    border-bottom: 1px solid var(--card-border-dark);
 }
 
-button {
-    background: #fff;
+.logo-container { display: flex; align-items: center; gap: 10px; }
+.logo-icon { color: var(--primary-color); width: 28px; height: 28px; }
+body.organ-donation-page .logo-icon { color: var(--accent-color-2); }
+.app-title { font-size: 1.5rem; font-weight: 600; color: var(--text-dark); }
+body.organ-donation-page .app-title { color: var(--text-light); }
+
+.app-nav { display: flex; gap: 10px; }
+.nav-button {
+    padding: 8px 16px;
+    background: transparent;
     border: none;
-    padding: 10px 20px;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 600;
-    width: 120px;
-    text-transform: uppercase;
+    border-radius: var(--radius-md);
+    font-family: var(--font-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text-muted-dark);
     cursor: pointer;
-    transform: skew(-21deg);
-  }
-  
-  span {
-    display: inline-block;
-    transform: skew(21deg);
-  }
-  
-  button::before {
+    transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    position: relative;
+}
+.nav-button::after {
     content: '';
     position: absolute;
-    top: 0;
     bottom: 0;
-    right: 100%;
-    left: 0;
-    background: rgb(20, 20, 20);
-    opacity: 0;
-    z-index: -1;
-    transition: all 0.5s;
-  }
-  
-  button:hover {
-    color: #fff;
-  }
-  
-  button:hover::before {
-    left: 0;
-    right: 0;
-    opacity: 1;
-  }
-
-main {
-    padding: 20px;
-    max-width: 100%;
-    background: white;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}   
-
-
-footer {
-    text-align: center;
-    padding: 10px;
-    background-image: linear-gradient(to right, #00b4db, #0083b0);
-    color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width var(--transition-fast) ease-out;
 }
-
-.container {
-    max-width: 350px;
-    background: #F8F9FD;
-    background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
-    border-radius: 40px;
-    padding: 25px 35px;
-    border: 5px solid rgb(255, 255, 255);
-    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px;
-    margin: 20px;
-  }
-
-.heading {
-    text-align: center;
-    font-weight: 900;
-    font-size: 30px;
-    color: rgb(16, 137, 211);
+.nav-button:hover {
+    color: var(--primary-color);
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: translateY(-1px);
 }
-
-.form {
-    margin-top: 20px;
-  }
-
-  .form .input {
-    width: 100%;
-    background: white;
-    border: none;
-    padding: 15px 20px;
-    border-radius: 20px;
-    margin-top: 15px;
-    box-shadow: #cff0ff 0px 10px 10px -5px;
-    border-inline: 2px solid transparent;
-  }
-  
-  .form .input::-moz-placeholder {
-    color: rgb(170, 170, 170);
-  }
-  
-  .form .input::placeholder {
-    color: rgb(170, 170, 170);
-  }
-  
-  .form .input:focus {
-    outline: none;
-    border-inline: 2px solid #12B1D1;
-  }
-
-  .form .alert-button {
-    display: block;
-    width: 100%;
-    font-weight: bold;
-    background: linear-gradient(45deg, rgb(16, 137, 211) 0%, rgb(18, 177, 209) 100%);
-    color: white;
-    padding-block: 15px;
-    margin: 20px auto;
-    border-radius: 20px;
-    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
-    border: none;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .form .alert-button:hover {
-    transform: scale(1.03);
-    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
-  }
-  
-  .form .alert-button:active {
-    transform: scale(0.95);
-    box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
-  }
-
-
- /* Organ Donation Form*/
- .custom-link {
-    text-decoration: none; 
-      color: whitesmoke;
- }
- .custom-link:hover {
-    color: rgb(214, 214, 214); 
-    text-decoration: underline;
-}
-
- .form-container {
-    width: 400px;
-    background: linear-gradient(#212121, #212121) padding-box,
-                linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
-    border: 2px solid transparent;
-    padding: 32px 24px;
-    font-size: 14px;
-    font-family: inherit;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    box-sizing: border-box;
-    border-radius: 16px;
-  }
-  
-  .form-container button:active {
-    scale: 0.95;
-  }
-  
-  .form-container .form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .form-container .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
-  .form-container .form-options label, .form-container .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #717171;
+.nav-button.active {
+    color: var(--primary-color);
     font-weight: 600;
-    font-size: 12px;
-  }
-  
-  .form-container .form-group input, .form-container .form-options select, input {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 8px;
-    color: #fff;
-    font-family: inherit;
-    background-color: transparent;
-    border: 1px solid #414141;
-  }
-  
-  .form-container .form-group textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border-radius: 8px;
-    resize: none;
-    color: #fff;
-    height: 96px;
-    border: 1px solid #414141;
-    background-color: transparent;
-    font-family: inherit;
-  }
-  
-  .form-container .form-group input::placeholder {
-    opacity: 0.5;
-  }
-  
-  .form-container .form-group input:focus {
-    outline: none;
-    border-color: #e81cff;
-  }
-  
-  .form-container .form-group textarea:focus {
-    outline: none;
-    border-color: #e81cff;
-  }
-  
-  .form-container .form-submit-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-    font-family: inherit;
-    color: #717171;
-    font-weight: 600;
-    width: 40%;
-    background: #313131;
-    border: 1px solid #414141;
-    padding: 12px 16px;
-    font-size: inherit;
-    gap: 8px;
-    margin-top: 8px;
+}
+.nav-button.active::after { width: 60%; }
+
+body.organ-donation-page .nav-button { color: var(--text-muted-light); }
+body.organ-donation-page .nav-button:hover { color: var(--accent-color-2); background-color: rgba(32, 201, 151, 0.15); }
+body.organ-donation-page .nav-button.active { color: var(--accent-color-2); }
+body.organ-donation-page .nav-button.active::after { background-color: var(--accent-color-2); }
+
+.header-actions { display: flex; align-items: center; gap: 20px; }
+.user-greeting { font-size: 0.9rem; color: var(--text-muted-dark); }
+body.organ-donation-page .user-greeting { color: var(--text-muted-light); }
+
+.icon-button {
+    background: transparent;
+    border: none;
+    color: var(--text-muted-dark);
     cursor: pointer;
-    border-radius: 6px;
-  }
-
-.organ-donation-heading {
-    text-align: center;
-    font-weight: 900;
-    font-size: 26px;
-    margin-bottom: 10px;
-    color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    position: relative;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
 }
+.icon-button:hover {
+    color: var(--primary-color);
+    background-color: rgba(0, 123, 255, 0.1);
+}
+body.organ-donation-page .icon-button { color: var(--text-muted-light); }
+body.organ-donation-page .icon-button:hover { color: var(--accent-color-2); background-color: rgba(32, 201, 151, 0.15); }
 
-.organ-donation-main {
+.notification-button .notification-badge {
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    background-color: var(--emergency-color);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+}
+
+.app-main {
+    flex-grow: 1;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.grid-item {
+    background: var(--card-bg-light);
+    border: 1px solid var(--card-border-light);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    display: flex;
     flex-direction: column;
-    gap: 20px;
-    background-image: linear-gradient(to right, #434343 0%, black 100%);
-    
-
+    align-items: flex-start;
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.5));
+    -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.5));
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+.grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
 }
 
-.organ-donation-header{
-    background-image: linear-gradient(to right, #434343 0%, black 100%);
-    border-bottom: white 2px solid;
+body.organ-donation-page .grid-item {
+     background: var(--card-bg-dark);
+     border: 1px solid var(--card-border-dark);
 }
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: rgba(0, 123, 255, 0.1);
+    color: var(--primary-color);
+}
+.card-icon svg { width: 24px; height: 24px; }
+.card-accent .card-icon { background: rgba(220, 53, 69, 0.1); color: var(--emergency-color); }
+.icon-blue { background: rgba(0, 123, 255, 0.1); color: var(--primary-color); }
+.icon-green { background: rgba(40, 167, 69, 0.1); color: var(--success-color); }
+.icon-purple { background: rgba(111, 66, 193, 0.1); color: var(--secondary-color); }
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+.card-description {
+    font-size: 0.95rem;
+    color: var(--text-muted-dark);
+    line-height: 1.5;
+    margin-bottom: auto;
+    padding-bottom: 20px;
+}
+body.organ-donation-page .card-title { color: var(--text-light); }
+body.organ-donation-page .card-description { color: var(--text-muted-light); }
+
+.action-button {
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    border: none;
+    background-image: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast) ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    align-self: flex-start;
+    position: relative;
+    overflow: hidden;
+}
+.action-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+.action-button:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+}
+
+.emergency-trigger-card .action-button {
+     background-image: linear-gradient(135deg, var(--emergency-color) 0%, var(--accent-color-1) 100%);
+     box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+}
+.emergency-trigger-card .action-button:hover { box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4); }
+.emergency-trigger-card .action-button:active { box-shadow: 0 2px 5px rgba(220, 53, 69, 0.2); }
+
+.pulse-button { animation: pulse 2s infinite ease-in-out; }
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3); }
+    50% { transform: scale(1.03); box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3); }
+}
+
+.full-width-card { grid-column: 1 / -1; }
+
+.inline-form-content {
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--card-border-light);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    width: 100%;
+    animation: slideDownFadeIn 0.5s ease-out forwards;
+}
+.form-header { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; color: var(--emergency-color); }
+.form-header h3 { font-size: 1.4rem; font-weight: 600; margin: 0; }
+.form-header svg { color: var(--emergency-color); }
+.inline-form-content p { color: var(--text-muted-dark); margin-bottom: 25px; font-size: 0.95rem; }
+
+.close-inline-form {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--text-muted-dark);
+    cursor: pointer;
+    padding: 0 5px;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+.close-inline-form:hover { color: var(--emergency-color); transform: rotate(90deg); }
+
+.inline-form { display: flex; flex-direction: column; gap: 25px; }
+
+.input-group { position: relative; }
+.input-group input, .input-group textarea, .input-group select {
+    width: 100%;
+    padding: 18px 15px 8px;
+    border: 1px solid var(--card-border-light);
+    border-radius: var(--radius-md);
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--text-dark);
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+.input-group textarea { resize: vertical; min-height: 50px; }
+.input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: white;
+}
+.input-group label {
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    font-size: 1rem;
+    color: var(--text-muted-dark);
+    pointer-events: none;
+    transition: all var(--transition-fast) ease;
+}
+
+.input-group input:focus + label, .input-group textarea:focus + label, .input-group select:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group textarea:not(:placeholder-shown) + label,
+.input-group select:valid + label {
+    top: 5px;
+    font-size: 0.75rem;
+    color: var(--primary-color);
+}
+.input-group input:required:not(:placeholder-shown):invalid { border-color: var(--emergency-color); }
+.input-group input:required:not(:placeholder-shown):invalid + label { color: var(--emergency-color); }
+
+.input-group select { appearance: none; background-image: none; padding-right: 15px; cursor: pointer; }
+.select-group { position: relative; }
+.select-arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted-dark);
+    pointer-events: none;
+    transition: transform var(--transition-fast);
+}
+.input-group select:focus ~ .select-arrow { transform: translateY(-50%) rotate(180deg); color: var(--primary-color); }
+body.organ-donation-page .input-group select:focus ~ .select-arrow { color: var(--accent-color-2); }
+
+.submit-button { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.button-loader {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-top-color: white;
+    border-radius: 50%;
+    display: none;
+    animation: spin 0.8s linear infinite;
+}
+.submit-button.loading .button-text { display: none; }
+.submit-button.loading .button-loader { display: block; }
+.submit-button.loading { pointer-events: none; opacity: 0.8; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.app-footer {
+    padding: 20px 30px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted-dark);
+    border-top: 1px solid var(--card-border-light);
+    margin-top: auto;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+.app-footer a { color: var(--primary-color); text-decoration: none; transition: color var(--transition-fast); }
+.app-footer a:hover { color: var(--secondary-color); }
+body.organ-donation-page .app-footer {
+    color: var(--text-muted-light);
+    border-top: 1px solid var(--card-border-dark);
+    background: rgba(30, 30, 33, 0.7);
+}
+body.organ-donation-page .app-footer a { color: var(--accent-color-2); }
+body.organ-donation-page .app-footer a:hover { color: var(--info-color); }
+.footer-links { margin-top: 5px; }
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-slow) ease, visibility var(--transition-slow) ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+.modal-overlay.visible { opacity: 1; visibility: visible; }
+
+.modal-content {
+    background: var(--card-bg-light);
+    border: 1px solid var(--card-border-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 35px 40px;
+    max-width: 650px;
+    width: 100%;
+    position: relative;
+    transform: scale(0.95) translateY(20px);
+    opacity: 0;
+    transition: transform var(--transition-speed) ease-out, opacity var(--transition-speed) ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.modal-overlay.visible .modal-content { transform: scale(1) translateY(0); opacity: 1; }
+body.organ-donation-page .modal-content {
+     background: var(--card-bg-dark);
+     border: 1px solid var(--card-border-dark);
+}
+
+.modal-header { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.modal-icon { color: var(--primary-color); width: 32px; height: 32px; }
+.modal-title { font-size: 1.6rem; font-weight: 600; color: var(--text-dark); }
+.modal-description { font-size: 1rem; color: var(--text-muted-dark); margin-bottom: 30px; }
+body.organ-donation-page .modal-title { color: var(--text-light); }
+body.organ-donation-page .modal-description { color: var(--text-muted-light); }
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: var(--text-muted-dark);
+    cursor: pointer;
+    transition: color var(--transition-fast), transform var(--transition-fast);
+    padding: 5px;
+}
+.modal-close-btn:hover { color: var(--primary-color); transform: rotate(90deg) scale(1.1); }
+body.organ-donation-page .modal-close-btn { color: var(--text-muted-light); }
+body.organ-donation-page .modal-close-btn:hover { color: var(--accent-color-2); }
+
+.modal-form .input-group input, .modal-form .input-group textarea { background-color: white; }
+body.organ-donation-page .modal-form .input-group input,
+body.organ-donation-page .modal-form .input-group textarea {
+    background-color: var(--bg-dark);
+    border-color: var(--card-border-dark);
+    color: var(--text-light);
+}
+body.organ-donation-page .modal-form .input-group input:focus,
+body.organ-donation-page .modal-form .input-group textarea:focus {
+     background-color: #2c2c30;
+     border-color: var(--accent-color-2);
+}
+body.organ-donation-page .modal-form .input-group input:focus + label,
+body.organ-donation-page .modal-form .input-group textarea:focus + label,
+body.organ-donation-page .modal-form .input-group input:not(:placeholder-shown) + label,
+body.organ-donation-page .modal-form .input-group textarea:not(:placeholder-shown) + label {
+     color: var(--accent-color-2);
+}
+
+.modal-actions { display: flex; justify-content: flex-end; gap: 15px; margin-top: 30px; }
+.modal-cancel-btn {
+    padding: 10px 20px;
+    background: var(--bg-light);
+    border: 1px solid var(--card-border-light);
+    color: var(--text-muted-dark);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+.modal-cancel-btn:hover { background: #e9ecef; border-color: #dee2e6; color: var(--text-dark); }
+body.organ-donation-page .modal-cancel-btn {
+     background: var(--card-bg-dark);
+     border-color: var(--card-border-dark);
+     color: var(--text-muted-light);
+}
+body.organ-donation-page .modal-cancel-btn:hover { background: #343a40; border-color: #495057; color: var(--text-light); }
+
+.ai-chat-container { display: flex; flex-direction: column; height: 450px; }
+.ai-chat-area {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid var(--card-border-light);
+}
+body.organ-donation-page .ai-chat-area {
+     background-color: rgba(255, 255, 255, 0.05);
+     border: 1px solid var(--card-border-dark);
+}
+
+.ai-message {
+    max-width: 85%;
+    padding: 12px 18px;
+    border-radius: var(--radius-lg);
+    line-height: 1.5;
+    font-size: 0.95rem;
+    animation: messageFadeIn 0.4s ease-out forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+@keyframes messageFadeIn { to { opacity: 1; transform: translateY(0); } }
+
+.ai-message-bot {
+    background-color: var(--bg-light);
+    border: 1px solid var(--card-border-light);
+    border-bottom-left-radius: var(--radius-sm);
+    align-self: flex-start;
+    color: var(--text-dark);
+}
+.ai-message-user {
+    background-image: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-bottom-right-radius: var(--radius-sm);
+    align-self: flex-end;
+    color: white;
+}
+body.organ-donation-page .ai-message-bot {
+    background-color: var(--card-bg-dark);
+    border: 1px solid var(--card-border-dark);
+    color: var(--text-light);
+}
+body.organ-donation-page .ai-message-user {
+     background-image: linear-gradient(135deg, var(--accent-color-2) 0%, var(--info-color) 100%);
+}
+
+.ai-typing span { display: inline-block; width: 8px; height: 8px; background-color: var(--text-muted-dark); border-radius: 50%; margin: 0 2px; animation: typing 1s infinite ease-in-out; }
+body.organ-donation-page .ai-typing span { background-color: var(--text-muted-light); }
+.ai-typing span:nth-child(1) { animation-delay: 0s; } .ai-typing span:nth-child(2) { animation-delay: 0.1s; } .ai-typing span:nth-child(3) { animation-delay: 0.2s; }
+@keyframes typing { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-5px); opacity: 1; } }
+
+.ai-input-form { display: flex; gap: 10px; align-items: stretch; }
+.ai-input-form .input-group { flex-grow: 1; margin-bottom: 0; }
+.ai-input-form .input-group input { padding: 13px 15px; } /* Adjusted padding for alignment */
+.ai-input-form .action-button { padding: 0 25px; align-self: stretch; height: auto; }
+
+
+.donation-form-wrapper { width: 100%; max-width: 900px; margin: 0 auto; }
+.donation-card {
+    background: var(--card-bg-dark);
+    border: 1px solid var(--card-border-dark);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    backdrop-filter: blur(calc(var(--glass-blur) * 0.5));
+    -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.5));
+    box-shadow: var(--shadow-lg);
+    color: var(--text-light);
+}
+.donation-card-header { text-align: center; margin-bottom: 40px; }
+.donation-card-header svg { width: 48px; height: 48px; color: var(--accent-color-2); margin-bottom: 15px; }
+.donation-card-header h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 10px; }
+.donation-card-header p { font-size: 1rem; color: var(--text-muted-light); }
+
+.donation-form .form-section { margin-bottom: 40px; }
+.donation-form h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 25px; border-bottom: 1px solid var(--card-border-dark); padding-bottom: 10px; color: var(--accent-color-2); }
+.donation-form .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 25px; }
+.donation-form .input-group input, .donation-form .input-group textarea, .donation-form .input-group select {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--card-border-dark);
+    color: var(--text-light);
+}
+.donation-form .input-group input::placeholder, .donation-form .input-group textarea::placeholder { color: var(--text-muted-light); opacity: 0.6; }
+.donation-form .input-group input:focus, .donation-form .input-group textarea:focus, .donation-form .input-group select:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-color-2);
+}
+.donation-form .input-group label { color: var(--text-muted-light); }
+.donation-form .input-group input:focus + label, .donation-form .input-group textarea:focus + label, .donation-form .input-group select:focus + label,
+.donation-form .input-group input:not(:placeholder-shown) + label, .donation-form .input-group textarea:not(:placeholder-shown) + label, .donation-form .input-group select:valid + label {
+    color: var(--accent-color-2);
+}
+.donation-form .select-arrow { color: var(--text-muted-light); }
+
+.checkbox-section label:first-of-type { display: block; font-weight: 500; margin-bottom: 15px; }
+.checkbox-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding-left: 30px;
+    font-size: 0.95rem;
+    color: var(--text-muted-light);
+    transition: color var(--transition-fast);
+}
+.checkbox-label input[type="checkbox"] { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+.checkbox-label span { position: relative; }
+.checkbox-label span::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px;
+    width: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--card-border-dark);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+.checkbox-label span::after {
+    content: '';
+    position: absolute;
+    left: -23px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg) scale(0);
+    width: 6px;
+    height: 12px;
+    border: solid var(--bg-dark);
+    border-width: 0 3px 3px 0;
+    transition: transform var(--transition-fast) ease;
+}
+.checkbox-label input:checked ~ span::before {
+    background-color: var(--accent-color-2);
+    border-color: var(--accent-color-2);
+}
+.checkbox-label input:checked ~ span::after { transform: translateY(-50%) rotate(45deg) scale(1); }
+.checkbox-label:hover { color: var(--text-light); }
+.checkbox-label:hover span::before { border-color: var(--accent-color-2); }
+
+.form-error { color: var(--emergency-color); font-size: 0.9rem; margin-top: 10px; }
+.form-submission { text-align: center; margin-top: 40px; }
+.donation-form .action-button {
+    background-image: linear-gradient(135deg, var(--accent-color-2) 0%, var(--info-color) 100%);
+    box-shadow: 0 4px 10px rgba(32, 201, 151, 0.3);
+    align-self: center;
+    min-width: 200px;
+}
+.donation-form .action-button:hover { box-shadow: 0 6px 15px rgba(32, 201, 151, 0.4); }
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--transition-slow) ease-out, transform var(--transition-slow) ease-out;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 1024px) {
+    .app-header { padding: 15px 20px; }
+    .app-nav { display: none; }
+    .app-main { padding: 30px 20px; }
+    .dashboard-grid { gap: 20px; }
+    .grid-item { padding: 25px; }
+}
+@media (max-width: 768px) {
+    .app-header { flex-wrap: wrap; padding: 10px 15px; }
+    .logo-container { order: 1; }
+    .header-actions { order: 2; gap: 10px; }
+    .app-title { font-size: 1.3rem; }
+    .app-main { padding: 20px 15px; }
+    .modal-content { padding: 25px 20px; }
+    .modal-title { font-size: 1.4rem; }
+    .donation-card { padding: 30px 20px; }
+    .donation-card-header h2 { font-size: 1.5rem; }
+    .donation-form .form-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .header-actions .user-greeting { display: none; }
+    .action-button { width: 100%; text-align: center; }
+    .modal-content { max-width: 95%; }
+    .ai-chat-area { padding: 15px; }
+    .ai-message { padding: 10px 15px; font-size: 0.9rem; }
+}
+
+.swal2-popup { font-family: var(--font-primary) !important; border-radius: var(--radius-lg) !important; background: var(--card-bg-light) !important; backdrop-filter: blur(5px) !important; border: 1px solid var(--card-border-light) !important; box-shadow: var(--shadow-lg) !important; }
+.swal2-title { color: var(--primary-color) !important; font-weight: 600 !important; }
+.swal2-html-container { color: var(--text-muted-dark) !important; font-size: 1rem !important; }
+.swal2-confirm, .swal2-cancel, .swal2-deny { border-radius: var(--radius-md) !important; padding: 10px 25px !important; font-weight: 600 !important; transition: all var(--transition-fast) ease !important; border: none !important; box-shadow: var(--shadow-sm) !important; }
+.swal2-confirm { background-image: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important; color: white !important; }
+.swal2-confirm:hover { transform: translateY(-1px) !important; box-shadow: var(--shadow-md) !important; }
+.swal2-cancel { background: #e9ecef !important; color: var(--text-muted-dark) !important; }
+.swal2-cancel:hover { background: #dee2e6 !important; color: var(--text-dark) !important; }
+.swal2-icon.swal2-success .swal2-success-ring { border-color: var(--success-color) !important; }
+.swal2-icon.swal2-success .swal2-success-line-tip, .swal2-icon.swal2-success .swal2-success-line-long { background-color: var(--success-color) !important; }
+.swal2-icon.swal2-error { border-color: var(--emergency-color) !important; }
+.swal2-icon.swal2-error .swal2-x-mark-line-left, .swal2-icon.swal2-error .swal2-x-mark-line-right { background-color: var(--emergency-color) !important; }
+.swal2-icon.swal2-warning { border-color: var(--accent-color-1) !important; color: var(--accent-color-1) !important; }
+.swal2-icon.swal2-info { border-color: var(--info-color) !important; color: var(--info-color) !important; }
+
+body.organ-donation-page .swal2-popup { background: var(--card-bg-dark) !important; border: 1px solid var(--card-border-dark) !important; }
+body.organ-donation-page .swal2-title { color: var(--accent-color-2) !important; }
+body.organ-donation-page .swal2-html-container { color: var(--text-muted-light) !important; }
+body.organ-donation-page .swal2-confirm { background-image: linear-gradient(135deg, var(--accent-color-2) 0%, var(--info-color) 100%) !important; }
+body.organ-donation-page .swal2-cancel { background: #343a40 !important; color: var(--text-muted-light) !important; }
+body.organ-donation-page .swal2-cancel:hover { background: #495057 !important; color: var(--text-light) !important; }
