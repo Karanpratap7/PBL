@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalHTML = `
             <div id="${id}" class="modal-overlay">
                 <div class="modal-content">
-                    <button class="modal-close-btn" aria-label="Close modal">Ã—</button>
+                    <button class="modal-close-btn" aria-label="Close modal">×</button>
                     <div class="modal-header">
                         <div class="modal-icon icon-${type}">${iconSVG[type]}</div>
                         <div>
