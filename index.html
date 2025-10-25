@@ -1,123 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediBridge | Dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="preload">
-    <div class="app-container">
-        <div class="blob-container">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
-        </div>
-
-        <header class="app-header">
-            <div class="logo-container">
-                <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.293 10.293-3.293 3.293a1 1 0 0 1-1.414 0l-1.293-1.293a1 1 0 0 1 0-1.414l4.293-4.293a1 1 0 1 1 1.414 1.414L13.414 12l2.879 2.879a1 1 0 0 1 0 1.414zM9.707 7.707a1 1 0 0 1 1.414 0l1.293 1.293a1 1 0 0 1 0 1.414L8.121 14.707a1 1 0 1 1-1.414-1.414L9.707 10.293l-1.293-1.293a1 1 0 0 1 0-1.414z"></path></svg>
-                <h1 class="app-title">MediBridge</h1>
-            </div>
-            <nav class="app-nav">
-                <button class="nav-button active" data-target="dashboard">Dashboard</button>
-                <button class="nav-button" onclick="window.location.href='organ-donation.html'">Organ Donation</button>
-                 <button class="nav-button" id="navAiHelperBtn">AI Assistant</button>
-            </nav>
-            <div class="header-actions">
-                <span class="user-greeting">Welcome, User!</span>
-                 <button class="icon-button notification-button" aria-label="Notifications">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.073 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707L19 13.586zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 4a2 2 0 0 0 2-2H9a2 2 0 0 0 2 2z"></path></svg>
-                    <span class="notification-badge">3</span>
-                </button>
-            </div>
-        </header>
-
-        <main class="app-main">
-            <section class="dashboard-grid" id="dashboard">
-                 <div class="grid-item card-accent reveal emergency-trigger-card">
-                    <div class="card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.866 3.487c.812-1.533 3.45-1.533 4.262 0l7.32 13.869c.698 1.32-.188 2.987-1.732 2.987H3.284c-1.544 0-2.43-1.667-1.732-2.987l7.314-13.87zm-1.732 12.013a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm-1-3.994a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1z"></path></svg>
-                    </div>
-                    <h2 class="card-title">Emergency</h2>
-                    <p class="card-description">Initiate immediate alert for critical situations.</p>
-                    <button class="action-button pulse-button" id="emergencyTrigger">Send Alert</button>
-                 </div>
-
-                 <div class="grid-item reveal">
-                     <div class="card-icon icon-blue">
-                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 2H5c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm-1 14H6v-2h12v2zm0-4H6v-2h12v2zm-4-4H6V6h8v2z"></path></svg>
-                    </div>
-                    <h2 class="card-title">Medical History</h2>
-                    <p class="card-description">Access patient records and health summaries.</p>
-                    <button class="action-button" id="medicalHistoryBtn">View History</button>
-                 </div>
-
-                 <div class="grid-item reveal">
-                     <div class="card-icon icon-green">
-                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.293 10.293-3.293 3.293a1 1 0 0 1-1.414 0l-1.293-1.293a1 1 0 0 1 0-1.414l4.293-4.293a1 1 0 1 1 1.414 1.414L13.414 12l2.879 2.879a1 1 0 0 1 0 1.414zM9.707 7.707a1 1 0 0 1 1.414 0l1.293 1.293a1 1 0 0 1 0 1.414L8.121 14.707a1 1 0 1 1-1.414-1.414L9.707 10.293l-1.293-1.293a1 1 0 0 1 0-1.414z"></path></svg>
-                     </div>
-                    <h2 class="card-title">Organ Donation</h2>
-                    <p class="card-description">Manage donor registry and information.</p>
-                    <button class="action-button" onclick="window.location.href='organ-donation.html'">Go to Registry</button>
-                 </div>
-
-                 <div class="grid-item reveal">
-                      <div class="card-icon icon-purple">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a5 5 0 0 0-5 5v2a5 5 0 0 0-2 4 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 3 3 0 0 1 6 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 5 5 0 0 0-2-4V7a5 5 0 0 0-5-5zm-3 8H7v1h2v-1zm8 0h-2v1h2v-1zM9 14h6v1H9v-1zm-4 3h14v2H5v-2zm3 3h8v1H8v-1z"></path></svg>
-                    </div>
-                    <h2 class="card-title">AI Assistant</h2>
-                    <p class="card-description">Get quick support and information lookup.</p>
-                    <button class="action-button" id="mainAiHelperBtn">Ask MediBot</button>
-                 </div>
-
-                 <div class="grid-item full-width-card reveal" id="emergencyFormContainer" hidden>
-                    <div class="inline-form-content">
-                        <div class="form-header">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M12.866 3.487c.812-1.533 3.45-1.533 4.262 0l7.32 13.869c.698 1.32-.188 2.987-1.732 2.987H3.284c-1.544 0-2.43-1.667-1.732-2.987l7.314-13.87zm-1.732 12.013a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm-1-3.994a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1z"></path></svg>
-                             <h3>Emergency Alert Details</h3>
-                             <button class="close-inline-form" id="cancelAlertBtn" aria-label="Close form">×</button>
-                        </div>
-                        <p>Enter patient details for immediate dispatch.</p>
-                        <form class="inline-form" id="emergencyAlertForm">
-                            <div class="input-group">
-                                <input type="text" id="patientName" name="name" required>
-                                <label for="patientName">Patient Name</label>
-                            </div>
-                            <div class="input-group">
-                                <input type="text" id="patientLocation" name="location" required>
-                                <label for="patientLocation">Location (Ward/Room)</label>
-                            </div>
-                            <div class="input-group">
-                                <textarea id="emergencyDetails" name="details" rows="2"></textarea>
-                                <label for="emergencyDetails">Brief Details (Optional)</label>
-                            </div>
-                            <button class="action-button submit-button" type="submit">
-                                <span class="button-text">Send Alert Now</span>
-                                <span class="button-loader"></span>
-                            </button>
-                        </form>
-                    </div>
-                 </div>
-            </section>
-        </main>
-
-        <footer class="app-footer">
-            <p>© <span id="currentYear"></span> MediBridge Technologies. All rights reserved.</p>
-             <div class="footer-links">
-                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
-            </div>
-        </footer>
-
-        <div id="modalContainer"></div>
-
+<body>
+<h1><center>Emergency Alert System</center></h1>
+<div class="navbar">
+  <a href="#home">Home&emsp;&emsp;&emsp;</a>&emsp;&emsp;&emsp;
+  <a href="#news">Survey&emsp;&emsp;&emsp;</a>&emsp;&emsp;&emsp;
+  <a href="#news">About us&emsp;&emsp;&emsp;</a>&emsp;&emsp;&emsp;
+ 
+  <div class="dropdown">
+    <button class="dropbtn">Log In&emsp;
+        <i class="fa fa-caret-down"></i>
+      </button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+      
+    <div class="dropdown-content">
+      <a href="#Admin" onclick="document.getElementById('id01').style.display='block'"> Admin</a>
+      <a href="#HspMgr" onclick="document.getElementById('id02').style.display='block'">Hospital Manager</a>
+      <a href="#doctor" onclick="document.getElementById('id03').style.display='block'">Doctor</a>
+      <a href="#user" onclick="document.getElementById('id04').style.display='block'">User</a>
+     
+    </div>   
+      </div>
+  </div> 
+<div id="id01" class="modal">
+  
+    <form class="modal-content animate" action="adminlogin" method="post">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img src="https://i.ibb.co/b5xK0k7/3135715-2.png" alt="Avatar" class="avatar">
+      </div>
+  
+      <div class="container">
+        <label for="apass"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="aname" value="admin" required >
+  
+        <label for="apass"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="apass" value="abc123" required>
+          
+        <button type="submit" value="Login"><strong>Login</strong></button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+      </div>
+  
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="psw"> <a href="#">Forgot password?</a></span>
+      </div>
+      </form>
+      </div>
+      
+<div id="id02" class="modal">
+  
+    <form class="modal-content animate" action="managerlogin" method="post">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img src="https://i.ibb.co/xJdXD7Y/265674.png" alt="Avatar" class="avatar">
+      </div>
+  
+      <div class="container">
+        <label for="mname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="mname" required>
+  
+        <label for="mpass"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="mpass" required>
+          
+        <button type="submit"><strong>Login</strong></button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+      </div>
+  
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+      </form>
+      </div>
+ 
+<div id="id03" class="modal">
+  
+    <form class="modal-content animate" action="doctorlogin" method="post">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img src="https://i.ibb.co/r742zdc/387561-1.png" alt="Avatar" class="avatar">
+      </div>
+  
+      <div class="container">
+        <label for="dname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="dname" required>
+  
+        <label for="dpass"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="dpass" required>
+          
+        <button type="submit"><strong>Login</strong></button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+      </div>
+  
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+      </form>
+      </div>
+      
+<div id="id04" class="modal">
+  
+    <form class="modal-content animate" action="userlogin" method="post">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img src="https://i.ibb.co/tJSrcW6/4228704-2.png" alt="Avatar" class="avatar">
+      </div>
+  
+      <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required>
+  
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+          
+        <button type="submit"><strong>Login</strong></button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+      </div>
+  
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id04').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+      </form>
+      </div>
+      
+      
+       <br><br><br>
+    <table border="0" width="250" style="padding-left:200px">
+        <tr> 
+            <th>Facility</th>
+        </tr>
+    </table>
+    <div class="facility" style="padding-left:150px">
+    <ul>
+        &emsp;&emsp;<li>Medical Advices & Check Ups</li>
+        &emsp;&emsp;<li>Trusted Medical Treatment</li>
+        &emsp;&emsp;<li>Emergency Help Available 24/7</li>
+        &emsp;&emsp;<li>Medical Research Professionals</li>
+        &emsp;&emsp;<li>Only Qualified Doctors</li>
+        &emsp;&emsp;<li>Quality Care For Every Patients</li>
+   </ul>
     </div>
+   
+    <frame src="contactus.html" name="f2">
+    &emsp;&emsp;&emsp;&emsp;<button input="contact us" value="contact us"><a href="contactus.html" target="f2"
+        style="text-decoration: none;"><strong>Contact Us</strong></button>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="script.js"></script>
 </body>
 </html>
