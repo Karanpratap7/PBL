@@ -2,6 +2,10 @@
 
 This is a healthcare alert application that allows users to send alerts to nearby hospitals in case of an emergency. It also includes a chatbot for answering user queries and a system for organ donation.
 
+## Live Demo
+
+You can view a live demo of the project here: [https://medi-bridge-healthcare.vercel.app/](https://medi-bridge-healthcare.vercel.app/)
+
 ## Features
 
 -   User authentication (sign up, login)
